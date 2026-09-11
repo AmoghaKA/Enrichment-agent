@@ -72,10 +72,13 @@ An autonomous Python-based lead enrichment agent that crawls public company webs
 
 ## Project Structure
 
+## Project Structure
+
+```
 ai-lead-enrichment-agent/
 │
 ├── src/
-│   ├── **init**.py
+│   ├── __init__.py
 │   ├── main.py
 │   ├── scraper.py
 │   ├── extractor.py
@@ -92,6 +95,7 @@ ai-lead-enrichment-agent/
 ├── .gitignore
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
