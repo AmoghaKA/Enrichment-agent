@@ -1,0 +1,82 @@
+[
+  {
+    "domain": "postman.com",
+    "company_name": "postman.com",
+    "company_overview": "LLM extraction failed. See application logs for details.",
+    "target_audience": "Could not be determined because LLM extraction failed.",
+    "contact_emails": [
+      "help@postman.com",
+      "info-jp@postman.com",
+      "info@postman.com"
+    ],
+    "leadership_team": [],
+    "source_pages": [
+      "https://postman.com",
+      "https://www.postman.com/company/careers",
+      "https://www.postman.com/company/contact-us",
+      "https://www.postman.com/company/about-postman",
+      "https://www.postman.com/company/contact-sales",
+      "https://www.postman.com/product/monitors",
+      "https://www.postman.com/pricing",
+      "https://www.postman.com/product/collection-runner"
+    ],
+    "confidence_score": 0.1,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "estimated_cost_usd": 0.0
+    }
+  },
+  {
+    "domain": "supabase.com",
+    "company_name": "supabase.com",
+    "company_overview": "LLM extraction failed. See application logs for details.",
+    "target_audience": "Could not be determined because LLM extraction failed.",
+    "contact_emails": [
+      "express@4.18.2"
+    ],
+    "leadership_team": [],
+    "source_pages": [
+      "https://supabase.com",
+      "https://supabase.com/solutions/enterprise",
+      "https://supabase.com/solutions/innovation-teams",
+      "https://supabase.com/customers/rally",
+      "https://supabase.com/pricing",
+      "https://supabase.com/customers/phoenix-energy",
+      "https://supabase.com/solutions/hosted-postgres",
+      "https://supabase.com/solutions/finserv"
+    ],
+    "confidence_score": 0.1,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "estimated_cost_usd": 0.0
+    }
+  },
+  {
+    "domain": "vapi.ai",
+    "company_name": "vapi.ai",
+    "company_overview": "LLM extraction failed. See application logs for details.",
+    "target_audience": "Could not be determined because LLM extraction failed.",
+    "contact_emails": [],
+    "leadership_team": [],
+    "source_pages": [
+      "https://vapi.ai",
+      "https://vapi.ai/customers",
+      "https://vapi.ai/careers",
+      "https://vapi.ai/pricing",
+      "https://vapi.ai/community",
+      "https://vapi.ai/platform",
+      "https://vapi.ai/partnerships"
+    ],
+    "confidence_score": 0.1,
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "estimated_cost_usd": 0.0
+    }
+  }
+]
