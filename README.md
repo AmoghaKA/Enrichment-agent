@@ -28,7 +28,7 @@ An autonomous Python-based lead enrichment agent that crawls public company webs
 
 ## Architecture
 
-```
+```text
                      Company Domains
                             |
                             v
@@ -72,9 +72,7 @@ An autonomous Python-based lead enrichment agent that crawls public company webs
 
 ## Project Structure
 
-## Project Structure
-
-```
+```text
 ai-lead-enrichment-agent/
 │
 ├── src/
@@ -127,47 +125,57 @@ Browser-based Google search is used as an optional fallback to discover public L
 
 ---
 
-# Setup
+## Setup
 
-## 1. Clone the repository
+### 1. Clone the Repository
 
+```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
-
 cd ai-lead-enrichment-agent
+```
 
 ---
 
-## 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
-### Windows PowerShell
+#### Windows PowerShell
 
+```powershell
 python -m venv venv
+```
 
-Activate it:
+Activate the virtual environment:
 
+```powershell
 venv\Scripts\activate
+```
 
-### macOS/Linux
+#### macOS/Linux
 
+```bash
 python3 -m venv venv
-
 source venv/bin/activate
+```
 
 ---
 
-## 3. Install Python dependencies
+### 3. Install Python Dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
 ---
 
-## 4. Install Playwright Chromium
+### 4. Install Playwright Chromium
 
+```bash
 python -m playwright install chromium
+```
 
 ---
 
-# Gemini API Configuration
+## Gemini API Configuration
 
 The application uses the Gemini API for AI-powered company intelligence extraction.
 
@@ -177,33 +185,43 @@ Copy `.env.example` to `.env`.
 
 ### Windows PowerShell
 
+```powershell
 Copy-Item .env.example .env
+```
 
 ### macOS/Linux
 
+```bash
 cp .env.example .env
+```
 
-Then open `.env` and add:
+Then open `.env` and add your API key:
 
+```env
 GEMINI_API_KEY=your_gemini_api_key_here
+```
 
-Replace the placeholder with your actual API key.
+Replace the placeholder with your actual Gemini API key.
 
-Never commit your `.env` file or expose your API key publicly.
+**Never commit your `.env` file or expose your API key publicly.**
 
 ---
 
-# Running the Application
+## Running the Application
 
 The default test domains are:
 
+```text
 postman.com
 supabase.com
 vapi.ai
+```
 
 Run the application:
 
+```bash
 python -m src.main
+```
 
 The application will:
 
@@ -217,139 +235,164 @@ The application will:
 
 ---
 
-# Using Custom Domains
+## Using Custom Domains
 
 The application also accepts company domains from the command line.
 
 Example:
 
+```bash
 python -m src.main stripe.com notion.so
+```
 
 Another example:
 
+```bash
 python -m src.main github.com vercel.com
+```
 
 ---
 
-# Custom Output Path
+## Custom Output Path
 
-A custom output path can be supplied using `--output`.
+A custom output path can be supplied using the `--output` argument.
 
 Example:
 
+```bash
 python -m src.main postman.com supabase.com --output output/custom.json
+```
 
 ---
 
-# Output
+## Output
 
-The application generates:
+The application generates a structured JSON file:
 
+```text
 output/output.json
+```
 
-The output contains structured company intelligence.
+The output contains enriched company intelligence, source information, confidence scores, and LLM usage statistics.
 
-Example structure:
+### Example Output
 
+```json
 [
-{
-"domain": "example.com",
-"company_name": "Example Company",
-"company_overview": "Example Company provides...",
-"target_audience": "Developers and engineering teams...",
-"contact_emails": [
-"[contact@example.com](mailto:contact@example.com)"
-],
-"leadership_team": [
-{
-"name": "Example Person",
-"role": "CEO",
-"linkedin_url": "https://www.linkedin.com/in/example",
-"linkedin_source": "search"
-}
-],
-"source_pages": [
-"https://example.com",
-"https://example.com/about"
-],
-"confidence_score": 0.91,
-"usage": {
-"input_tokens": 5000,
-"output_tokens": 700,
-"total_tokens": 5700,
-"estimated_cost_usd": 0.0
-}
-}
+  {
+    "domain": "example.com",
+    "company_name": "Example Company",
+    "company_overview": "Example Company provides software solutions for modern engineering teams.",
+    "target_audience": "Software developers, engineering teams, and technology companies.",
+    "contact_emails": [
+      "contact@example.com",
+      "sales@example.com"
+    ],
+    "leadership_team": [
+      {
+        "name": "Example Person",
+        "role": "Chief Executive Officer",
+        "linkedin_url": "https://www.linkedin.com/in/example",
+        "linkedin_source": "website"
+      },
+      {
+        "name": "Another Person",
+        "role": "Co-Founder",
+        "linkedin_url": "https://www.linkedin.com/in/another-person",
+        "linkedin_source": "search"
+      }
+    ],
+    "source_pages": [
+      "https://example.com",
+      "https://example.com/about",
+      "https://example.com/team",
+      "https://example.com/contact"
+    ],
+    "confidence_score": 0.91,
+    "usage": {
+      "input_tokens": 5000,
+      "output_tokens": 700,
+      "total_tokens": 5700,
+      "estimated_cost_usd": 0.0
+    }
+  }
 ]
+```
 
 The actual values depend on the public information available on the websites at runtime.
 
 ---
 
-# Data Fields
+## Output Fields
 
-## Company Overview
-
-A concise description of what the company does.
-
-## Target Audience
-
-The company's likely ideal customer profile based on available website evidence.
-
-## Contact Emails
-
-Public or generic contact email addresses discovered from the website.
-
-Examples:
-
-[contact@example.com](mailto:contact@example.com)
-[sales@example.com](mailto:sales@example.com)
-[support@example.com](mailto:support@example.com)
-
-## Leadership / Team
-
-Leadership or important team members found in the website content.
-
-Each team member contains:
-
-name
-role
-linkedin_url
-linkedin_source
-
-`linkedin_source` can be:
-
-website
-search
-null
-
-## Source Pages
-
-URLs that contributed useful evidence to the extraction.
-
-## Confidence Score
-
-A value between 0.0 and 1.0 representing the estimated quality and completeness of the extracted information.
-
-## Usage
-
-The application records:
-
-input_tokens
-output_tokens
-total_tokens
-estimated_cost_usd
+| Field              | Description                                                                       |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `domain`           | Company domain that was processed                                                 |
+| `company_name`     | Identified company name                                                           |
+| `company_overview` | Concise description of the company's products or services                         |
+| `target_audience`  | Identified target customers or users                                              |
+| `contact_emails`   | Public or generic email addresses discovered from the website                     |
+| `leadership_team`  | Leadership or relevant team members identified from available evidence            |
+| `linkedin_url`     | Public LinkedIn profile URL when reliably identified                              |
+| `linkedin_source`  | Indicates whether the LinkedIn URL came from the website or external search       |
+| `source_pages`     | Website pages used as evidence for the extraction                                 |
+| `confidence_score` | Estimated confidence in the completeness and quality of the extracted information |
+| `usage`            | LLM token usage and estimated API cost                                            |
 
 ---
 
-# Web Crawling Strategy
+## LinkedIn Source
+
+The `linkedin_source` field indicates how a LinkedIn profile was discovered.
+
+Possible values are:
+
+* `website` — LinkedIn URL was found directly on the company website
+* `search` — LinkedIn URL was discovered through an external search
+* `null` — No reliable LinkedIn profile was found
+
+The application does not generate or guess LinkedIn URLs.
+
+---
+
+## Confidence Score
+
+The `confidence_score` is represented as a value between `0.0` and `1.0`.
+
+A higher score indicates that the extracted information is supported by stronger and more complete evidence from the crawled pages.
+
+---
+
+## Token Usage
+
+The `usage` object records the LLM usage for each company:
+
+* `input_tokens` — Tokens sent to the Gemini API
+* `output_tokens` — Tokens generated by the Gemini API
+* `total_tokens` — Total input and output tokens
+* `estimated_cost_usd` — Estimated API cost for the extraction
+
+---
+
+## Source Traceability
+
+The `source_pages` field provides the URLs that contributed information to the final company profile.
+
+This makes the generated intelligence easier to verify and provides traceability between the extracted data and the original website content.
+
+---
+
+## Web Crawling Strategy
 
 The crawler first loads the company homepage using Playwright.
 
 It then discovers internal links and ranks them based on relevance.
 
-High-value paths include:
+### High-Value Pages
 
+The crawler prioritizes pages such as:
+
+```text
 /about
 /company
 /team
@@ -364,9 +407,13 @@ High-value paths include:
 /customers
 /enterprise
 /careers
+```
+
+### Pages to Avoid
 
 The crawler avoids unnecessary pages such as:
 
+```text
 /blog
 /news
 /docs
@@ -375,54 +422,57 @@ The crawler avoids unnecessary pages such as:
 /privacy
 /terms
 /security
+```
 
 The number of crawled pages per domain is limited to prevent excessive browsing.
 
 ---
 
-# Content Preprocessing
+## Content Preprocessing
 
 Raw HTML is not directly sent to the LLM.
 
 The preprocessing pipeline is:
 
+```text
 Raw HTML
-|
-v
+    |
+    v
 Remove scripts
-|
-v
+    |
+    v
 Remove styles
-|
-v
+    |
+    v
 Remove SVGs
-|
-v
+    |
+    v
 Remove navigation
-|
-v
+    |
+    v
 Remove footer/forms
-|
-v
+    |
+    v
 Remove common cookie/popup elements
-|
-v
+    |
+    v
 Extract text
-|
-v
+    |
+    v
 Normalize whitespace
-|
-v
+    |
+    v
 Limit content size
-|
-v
+    |
+    v
 Gemini
+```
 
 This reduces unnecessary LLM input and improves extraction quality.
 
 ---
 
-# Structured LLM Output
+## Structured LLM Output
 
 Gemini is configured to return structured JSON matching the application's Pydantic schema.
 
@@ -434,7 +484,7 @@ The LLM is instructed to extract information only from the provided evidence and
 
 ---
 
-# Error Handling
+## Error Handling
 
 The application is designed to continue processing when individual pages or companies fail.
 
@@ -452,25 +502,27 @@ Handled conditions include:
 
 For example:
 
+```text
 Company A
-|
-+-- Homepage ✓
-+-- About ✓
-+-- Team ✗ timeout
-|
-v
+    |
+    +-- Homepage ✓
+    +-- About ✓
+    +-- Team ✗ timeout
+    |
+    v
 Continue processing
 
 Company B
-|
-v
+    |
+    v
 Still processed normally
+```
 
 One failed page does not terminate the entire application.
 
 ---
 
-# LinkedIn Enrichment
+## LinkedIn Enrichment
 
 When a leadership member is identified but does not have a LinkedIn URL in the company website content, the application performs an external search.
 
@@ -478,36 +530,42 @@ The search is constrained to LinkedIn profile URLs.
 
 Example query concept:
 
+```text
 site:linkedin.com/in/ "Person Name" "Company Name"
+```
 
 The application does not manufacture LinkedIn URLs.
 
 If a profile cannot be reliably discovered, the field remains:
 
+```json
 "linkedin_url": null
+```
 
 ---
 
-# Token and Cost Tracking
+## Token and Cost Tracking
 
 The application records LLM usage returned by the Gemini API.
 
-For each company:
+For each company, the following information is tracked:
 
-Input tokens
-Output tokens
-Total tokens
-Estimated cost
+* Input tokens
+* Output tokens
+* Total tokens
+* Estimated cost
 
 The cost calculation is separated from the extraction logic so the pricing configuration can be changed independently if required.
 
 ---
 
-# Logging
+## Logging
 
 Runtime logs are stored in:
 
+```text
 logs/agent.log
+```
 
 The logs include information such as:
 
@@ -522,41 +580,53 @@ Logging makes it easier to understand what happened during each run and diagnose
 
 ---
 
-# Testing
+## Testing
 
 The three required assignment domains are:
 
+```text
 postman.com
 supabase.com
 vapi.ai
+```
 
 Run:
 
+```bash
 python -m src.main
+```
 
-Then inspect:
+Then inspect the generated output:
 
+```text
 output/output.json
+```
 
 You can also inspect the application logs:
 
+```text
 logs/agent.log
+```
 
 ---
 
-# Security
+## Security
 
 The Gemini API key is loaded from an environment variable.
 
 The following file must never be committed:
 
+```text
 .env
+```
 
 The `.gitignore` file excludes it.
 
-Before pushing the repository, verify:
+Before pushing the repository, verify the Git status:
 
+```bash
 git status
+```
 
 Make sure `.env` is not included in the files to be committed.
 
@@ -564,7 +634,7 @@ If an API key is accidentally exposed, revoke it immediately and generate a new 
 
 ---
 
-# Limitations
+## Limitations
 
 This project relies on publicly accessible website content.
 
@@ -583,7 +653,7 @@ When information cannot be reliably retrieved, the application records the missi
 
 ---
 
-# Future Improvements
+## Future Improvements
 
 Possible future improvements include:
 
@@ -603,7 +673,7 @@ Possible future improvements include:
 
 ---
 
-# Assignment Deliverables
+## Assignment Deliverables
 
 The repository provides:
 
@@ -623,7 +693,7 @@ The repository provides:
 
 ---
 
-# Author
+## Author
 
 **Amogha K A**
 
